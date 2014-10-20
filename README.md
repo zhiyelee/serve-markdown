@@ -15,7 +15,7 @@ $ npm install serve-markdown
 ## API
 
 ```js
-var serveStatic = require(‘serve-markdown’)
+var serveStatic = require('serve-markdown')
 ```
 
 ### serveStatic(root, options)
