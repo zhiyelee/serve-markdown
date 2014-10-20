@@ -1,6 +1,6 @@
 {
   "name": "serve-markdown",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "serve markdown files",
   "main": "index.js",
   "repository": {
