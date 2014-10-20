@@ -1,0 +1,25 @@
+{
+  "name": "serve-markdown",
+  "version": "0.1.0",
+  "description": "serve markdown files",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/zhiyelee/serve-markdown.git"
+  },
+  "keywords": [
+    "connect",
+    "markdown",
+    "middleware"
+  ],
+  "author": "zhiyelee",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zhiyelee/serve-markdown/issues"
+  },
+  "homepage": "https://github.com/zhiyelee/serve-markdown",
+  "dependencies": {
+    "marked": "^0.3.2",
+    "utils-merge": "^1.0.0"
+  }
+}
