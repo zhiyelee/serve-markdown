@@ -15,10 +15,10 @@ $ npm install serve-markdown
 ## API
 
 ```js
-var serveStatic = require('serve-markdown')
+var serveMarkdown = require('serve-markdown')
 ```
 
-### serveStatic(root, options)
+### serveMarkdown(root, options)
 
 Create a new middleware function to serve markdown files from within a given root
 directory. The file to serve will be determined by combining `req.url`
