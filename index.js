@@ -1,5 +1,6 @@
 var marked = require('marked');
-var merge = require('utils-merge');
+var merge = require('util-merge');
+var util = require('util');
 var path = require('path');
 var fs = require('fs');
 
@@ -8,7 +9,10 @@ exports = module.exports = function serveMarkdown(root, options) {
         throw new TypeError('root path required')
     }
 
-    options = options || {};
+    options = merge({
+        template: path.join(__dirname, 'public', 'template.html')
+    }, options);
+
     initMarked(options.mdOptions);
 
     return function (req, res, next) {
@@ -19,7 +23,11 @@ exports = module.exports = function serveMarkdown(root, options) {
         var isExists = fs.existsSync(fp);
         if (isExists && (ext === 'md' || ext === 'markdown')) {
             var html = marked(fs.readFileSync(fp, 'utf8'));
-            html = '<div class="markdown markdown-content">' + html + '</div>';
+            var template = fs.readFileSync(options.template, 'utf8');
+
+            html = template
+                    .replace(/{{title}}/g, 'serve-markdown')
+                    .replace(/{{content}}/g, html);
             res.setHeader('Content-Type', 'text/html; charset=utf-8');
             res.end(html);
         } else {
