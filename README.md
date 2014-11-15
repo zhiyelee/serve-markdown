@@ -28,6 +28,8 @@ to the next middleware, allowing for stacking and fall-backs.
 
 #### options
 
+Accept below properties in the options object.
+
 ##### template
 
 Optional path to an HTML template. Defaults to a built-in template.
@@ -37,7 +39,7 @@ The following tokens are replaced in templates:
 * {{title}} the title of the page
 * {{content}} html contents compiled from the markdown file
 
-#### title
+##### title
 
 `{Function | String}` Optional, the return-value/value will be used for replacing the `title` token in the template.  Default to the name of the served file.
 
