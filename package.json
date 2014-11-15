@@ -20,6 +20,6 @@
   "homepage": "https://github.com/zhiyelee/serve-markdown",
   "dependencies": {
     "marked": "^0.3.2",
-    "utils-merge": "^1.0.0"
+    "util-merge": "0.0.2"
   }
 }
