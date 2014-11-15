@@ -49,4 +49,19 @@ The following tokens are replaced in templates:
 
 ## Examples
 
-To be continued..
+```javascript
+var connect = require('connect');
+var serveMarkdown = require('serve-markdown');
+
+var app = connect();
+// serve markdown file
+app.use(serveMarkdown('/Users/lizhiye/weekly', {
+    title: function (title) {
+        // file: /Users/lizhiye/weekly/weekly-report.md
+        // title: weekly-report.md
+        return title + ' -zhiye'
+    }
+}));
+
+app.listen(8765);
+```
