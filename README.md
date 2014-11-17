@@ -48,6 +48,13 @@ The following tokens are replaced in templates:
 * `{Function}` the return value of the function will be used for replacing the `{{title}}` token in the template. The function will be called with one argument: name - the name(`basename`, like `demo.md`) of the served file.
 * `{String}` Used as the replacement of the `{{title}}` token of the template
 
+##### style
+
+Optional path to a css stylesheet file Or a stylesheet string. Default to a built-in stylesheet.
+##### classes
+
+Optional class/classes-string/classes-array, which will used as the class of the wapper div of the `{{content}}` token.
+
 
 ## Examples
 
@@ -62,7 +69,8 @@ app.use(serveMarkdown('/Users/lizhiye/weekly', {
         // file: /Users/lizhiye/weekly/weekly-report.md
         // title: weekly-report.md
         return title + ' -zhiye'
-    }
+    },
+    classes: 'md mdcontent'
 }));
 
 app.listen(8765);
