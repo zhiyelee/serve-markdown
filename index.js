@@ -13,7 +13,9 @@ exports = module.exports = function serveMarkdown(root, options) {
         template: path.join(__dirname, 'public', 'template.html'),
         title: function (fileName) {
             return fileName;
-        }
+        },
+        classes: 'mdcontent',
+        style: path.join(__dirname, 'public', 'screen.css')
     }, options);
 
     initMarked(options.mdOptions);
@@ -26,15 +28,31 @@ exports = module.exports = function serveMarkdown(root, options) {
         var isExists = fs.existsSync(fp);
         if (isExists && (ext === 'md' || ext === 'markdown')) {
             var html = marked(fs.readFileSync(fp, 'utf8'));
-            var template = fs.readFileSync(options.template, 'utf8');
-            var title = options.title;
 
+            var template = options.template;
+            if (fs.existsSync(template) && fs.statSync(template).isFile()) {
+                template = fs.readFileSync(template, 'utf8');
+            }
+
+            var title = options.title;
             if (typeof title === 'function') {
                 title = title(path.basename(fp));
             }
 
+            var style = options.style;
+            if (fs.existsSync(style) && fs.statSync(style).isFile()) {
+                style = fs.readFileSync(style, 'utf8');
+            }
+
+            var classes = options.classes;
+            if (Array.isArray(classes)) {
+                classes = classes.join(' ')
+            }
+
             html = template
                     .replace(/{{title}}/g, title)
+                    .replace(/{{style}}/g, style)
+                    .replace(/{{classes}}/g, classes)
                     .replace(/{{content}}/g, html);
 
             res.setHeader('Content-Type', 'text/html; charset=utf-8');

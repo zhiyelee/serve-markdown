@@ -37,7 +37,9 @@ Optional path to an HTML template. Defaults to a built-in template.
 The following tokens are replaced in templates:
 
 * `{{title}}` the title of the page
+* `{{style}}` the specified styleSheet
 * `{{content}}` html contents compiled from the markdown file
+* `{{classes}}` the specified classes for the wrapper of the `{{content}}`
 
 ##### title
 
