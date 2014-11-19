@@ -54,6 +54,7 @@ Optional path to a css stylesheet file Or a stylesheet string. Default to a buil
 ##### classes
 
 Optional class/classes-string/classes-array, which will used as the class of the wapper div of the `{{content}}` token.
+Default to `sm-content`, and the default stylesheet is also based on this class.
 
 
 ## Examples
