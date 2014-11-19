@@ -14,7 +14,7 @@ exports = module.exports = function serveMarkdown(root, options) {
         title: function (fileName) {
             return fileName;
         },
-        classes: 'mdcontent',
+        classes: 'sm-content',
         style: path.join(__dirname, 'public', 'screen.css')
     }, options);
 
