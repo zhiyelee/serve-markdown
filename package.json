@@ -23,9 +23,11 @@
     "util-merge": "0.0.2"
   },
   "scripts": {
-    "test": "mocha --reporter spec --bail --check-leaks --require should test/"
+    "test": "mocha --reporter spec --bail --check-leaks --require should test/",
+    "test-travis": "istanbul cover node_modules/mocha/bin/_mocha --report lcovonly -- --reporter spec --require should --check-leaks test/"
   },
   "devDependencies": {
+    "istanbul": "^0.3.2",
     "mocha": "^2.0.1",
     "should": "^4.3.0",
     "supertest": "^0.15.0"
