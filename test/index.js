@@ -45,6 +45,7 @@ describe('Server-markdown', function () {
                 .expect(200, 'p.md<p>serve-markdown</p>\n', done);
         });
     });
+
     describe('use path in option', function () {
         it('Both template and style are path', function (done) {
             var option = {
@@ -63,7 +64,7 @@ describe('Server-markdown', function () {
             request(app)
                 .get('/p.md')
                 .expect(function (res) {
-                    res.res.text
+                    res.text
                         .replace(/\n/g, '')
                         .replace(/ +/g, ' ')
                         .should.equal(expected);
