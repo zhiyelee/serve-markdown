@@ -1,6 +1,7 @@
 serve-markdown
 ==============
 
+[![Build Status](https://api.travis-ci.org/zhiyelee/serve-markdown.svg)](http://travis-ci.org/zhiyelee/serve-markdown)
 [![NPM Version](http://img.shields.io/npm/v/serve-markdown.svg?style=flat)](https://www.npmjs.org/package/serve-markdown)
 [![NPM Downloads](https://img.shields.io/npm/dm/serve-markdown.svg?style=flat)](https://www.npmjs.org/package/serve-markdown)
 
