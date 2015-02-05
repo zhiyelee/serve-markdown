@@ -1,8 +1,9 @@
-var marked = require('marked');
-var merge = require('util-merge');
-var util = require('util');
-var path = require('path');
-var fs = require('fs');
+var marked = require('marked')
+  , merge = require('util-merge')
+  , util = require('util')
+  , path = require('path')
+  , decode = require('urldecode')
+  , fs = require('fs');
 
 exports = module.exports = function serveMarkdown(root, options) {
     if (!root) {
@@ -25,6 +26,12 @@ exports = module.exports = function serveMarkdown(root, options) {
         var ext = path.extname(fp).substr(1);
 
         fp = path.join(root, fp);
+        fp = decode(fp);
+        // path contain invalid chars
+        if (!~fp) {
+            next();
+        };
+
         var isExists = fs.existsSync(fp);
         if (isExists && (ext === 'md' || ext === 'markdown')) {
             var html = marked(fs.readFileSync(fp, 'utf8'));
