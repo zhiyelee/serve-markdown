@@ -5,7 +5,7 @@ serve-markdown
 [![NPM Version](http://img.shields.io/npm/v/serve-markdown.svg?style=flat)](https://www.npmjs.org/package/serve-markdown)
 [![NPM Downloads](https://img.shields.io/npm/dm/serve-markdown.svg?style=flat)](https://www.npmjs.org/package/serve-markdown)
 
-A connect middleware, parsed markdown files to html.
+A connect middleware, parses markdown files to html.
 
 ## Install
 
@@ -51,11 +51,15 @@ The following tokens are replaced in templates:
 
 ##### style
 
-Optional path to a css stylesheet file Or a stylesheet string. Default to a built-in stylesheet.
+Optional
+
+path to a css stylesheet file Or a stylesheet string. Default to a built-in stylesheet.
 ##### classes
 
-Optional class/classes-string/classes-array, which will used as the class of the wapper div of the `{{content}}` token.
-Default to `sm-content`, and the default stylesheet is also based on this class.
+Optional
+
+`string` OR `array`, which will be used as the class of the wapper `div` of the `{{content}}` token.
+Default to `sm-content`. The default stylesheet is also written based on this class.
 
 
 ## Examples
