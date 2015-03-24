@@ -30,7 +30,6 @@
     "test-travis": "istanbul cover node_modules/mocha/bin/_mocha --report lcovonly -- --reporter spec --require should --check-leaks test/"
   },
   "devDependencies": {
-    "connect": "^3.3.3",
     "istanbul": "^0.3.2",
     "mocha": "^2.0.1",
     "should": "^4.3.0",
