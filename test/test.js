@@ -1,18 +1,14 @@
-var connect = require('connect')
-  , request = require('supertest')
+var request = require('supertest')
   , serveMarkdown = require('../')
   , path = require('path')
   , http = require('http')
   , fs = require('fs');
 
-var app;
-var root = path.resolve(__dirname, './fixtures/');
-
 
 describe('Server-markdown', function () {
   describe('common function', function() {
     it('url contains invalid chars', function(done) {
-      app = createServer(root);
+      var app = createServer();
       request(app)
         .get('/%EA.md')
         .expect(404)
@@ -30,7 +26,7 @@ describe('Server-markdown', function () {
         template: '{{content}}',
         title: 'test-server'
       };
-      app = createServer(root, option);
+      var app = createServer(option);
 
       request(app)
         .get('/p.md')
@@ -43,7 +39,7 @@ describe('Server-markdown', function () {
           return name + '-fun';
         }
       };
-      app = createServer(root, option);
+      var app = createServer(option);
 
       request(app)
         .get('/p.md')
@@ -53,7 +49,7 @@ describe('Server-markdown', function () {
       var option = {
         template: '{{title}}{{content}}'
       };
-      app = createServer(root, option);
+      var app = createServer(option);
 
       request(app)
         .get('/p.md')
@@ -67,7 +63,7 @@ describe('Server-markdown', function () {
         template: path.resolve(__dirname, './fixtures/template.html'),
         style: path.resolve(__dirname, './fixtures/screen.css')
       };
-      app = createServer(root, option);
+      var app = createServer(option);
 
       var expPath = path.resolve(__dirname, './expected/p.html');
       // trim the \n
@@ -89,7 +85,8 @@ describe('Server-markdown', function () {
   });
 });
 
-function createServer(root, option) {
+function createServer(option) {
+  var root = path.resolve(__dirname, './fixtures/');
   var _serveMarkdown = serveMarkdown(root, option || {});
 
   return http.createServer(function (req, res) {
