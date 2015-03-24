@@ -1,5 +1,7 @@
 var marked = require('marked')
   , merge = require('util-merge')
+  , debug = require('debug')('serve-markdown')
+  , createError = require('http-errors')
   , util = require('util')
   , path = require('path')
   , decode = require('urldecode')
@@ -27,9 +29,9 @@ exports = module.exports = function serveMarkdown(root, options) {
 
     fp = path.join(root, fp);
     fp = decode(fp);
-    // path contain invalid chars
     if (!~fp) {
-      next();
+      debug('path contains invalid chars.');
+      return next(createError(404, 'contains invalid chars'));
     }
 
     var isExists = fs.existsSync(fp);
@@ -65,7 +67,7 @@ exports = module.exports = function serveMarkdown(root, options) {
       res.setHeader('Content-Type', 'text/html; charset=utf-8');
       res.end(html);
     } else {
-      next();
+      return next();
     }
   }
 };

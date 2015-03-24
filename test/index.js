@@ -2,6 +2,7 @@ var connect = require('connect')
   , request = require('supertest')
   , serveMarkdown = require('../')
   , path = require('path')
+  , http = require('http')
   , fs = require('fs');
 
 var app;
@@ -9,13 +10,27 @@ var root = path.resolve(__dirname, './fixtures/');
 
 
 describe('Server-markdown', function () {
+  describe('common function', function() {
+    it('url contains invalid chars', function(done) {
+      app = createServer(root);
+      request(app)
+        .get('/%EA.md')
+        .expect(404)
+        .end(function (err, res) {
+          if (err) {
+             done(err);
+          }
+          done();
+        });
+    })
+  });
   describe('title', function () {
     it('title is a string', function (done) {
       var option = {
         template: '{{content}}',
         title: 'test-server'
       };
-      app = getApp(app, option);
+      app = createServer(root, option);
 
       request(app)
         .get('/p.md')
@@ -28,7 +43,7 @@ describe('Server-markdown', function () {
           return name + '-fun';
         }
       };
-      app = getApp(app, option);
+      app = createServer(root, option);
 
       request(app)
         .get('/p.md')
@@ -38,7 +53,7 @@ describe('Server-markdown', function () {
       var option = {
         template: '{{title}}{{content}}'
       };
-      app = getApp(app, option);
+      app = createServer(root, option);
 
       request(app)
         .get('/p.md')
@@ -52,7 +67,7 @@ describe('Server-markdown', function () {
         template: path.resolve(__dirname, './fixtures/template.html'),
         style: path.resolve(__dirname, './fixtures/screen.css')
       };
-      app = getApp(app, option);
+      app = createServer(root, option);
 
       var expPath = path.resolve(__dirname, './expected/p.html');
       // trim the \n
@@ -74,10 +89,14 @@ describe('Server-markdown', function () {
   });
 });
 
+function createServer(root, option) {
+  var _serveMarkdown = serveMarkdown(root, option || {});
 
-function getApp(app, option) {
-  app = connect();
-  app.use(serveMarkdown(root, option));
+  return http.createServer(function (req, res) {
+    _serveMarkdown(req, res, function(err) {
+      res.statusCode = err ? (err.status || 500) : 404;
+      res.end(err ? err.message : 'Not Found');
+    })
 
-  return app;
+  })
 }
