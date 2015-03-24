@@ -1,6 +1,7 @@
 var marked = require('marked')
   , merge = require('util-merge')
-  , util = require('util')
+  , debug = require('debug')('serve-markdown')
+  , createError = require('http-errors')
   , path = require('path')
   , decode = require('urldecode')
   , fs = require('fs');
@@ -27,16 +28,18 @@ exports = module.exports = function serveMarkdown(root, options) {
 
     fp = path.join(root, fp);
     fp = decode(fp);
-    // path contain invalid chars
     if (!~fp) {
-      next();
+      debug('path contains invalid chars.');
+      return next(createError(404, 'contains invalid chars'));
     }
 
     var isExists = fs.existsSync(fp);
+    debug('check file extension: only serve `md` and `markdown`');
     if (isExists && (ext === 'md' || ext === 'markdown')) {
       var html = marked(fs.readFileSync(fp, 'utf8'));
 
       var template = options.template;
+      debug('template path %s', options.template);
       if (fs.existsSync(template) && fs.statSync(template).isFile()) {
         template = fs.readFileSync(template, 'utf8');
       }
@@ -65,7 +68,7 @@ exports = module.exports = function serveMarkdown(root, options) {
       res.setHeader('Content-Type', 'text/html; charset=utf-8');
       res.end(html);
     } else {
-      next();
+      return next();
     }
   }
 };
@@ -82,6 +85,6 @@ function initMarked(options) {
     smartypants: false
   };
 
-  mdOptions = merge(mdOptions, options)
+  mdOptions = merge(mdOptions, options);
   marked.setOptions(mdOptions);
 }

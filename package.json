@@ -19,6 +19,8 @@
   },
   "homepage": "https://github.com/zhiyelee/serve-markdown",
   "dependencies": {
+    "debug": "^2.1.3",
+    "http-errors": "^1.3.1",
     "marked": "^0.3.2",
     "urldecode": "^1.0.0",
     "util-merge": "0.0.2"
@@ -28,7 +30,6 @@
     "test-travis": "istanbul cover node_modules/mocha/bin/_mocha --report lcovonly -- --reporter spec --require should --check-leaks test/"
   },
   "devDependencies": {
-    "connect": "^3.3.3",
     "istanbul": "^0.3.2",
     "mocha": "^2.0.1",
     "should": "^4.3.0",
