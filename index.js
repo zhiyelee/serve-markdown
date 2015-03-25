@@ -34,8 +34,8 @@ exports = module.exports = function serveMarkdown(root, options) {
     }
 
     var isExists = fs.existsSync(fp);
-    debug('check file extension: only serve `md` and `markdown`');
     if (isExists && (ext === 'md' || ext === 'markdown')) {
+      debug('serve file : %s', path.relative(root, fp));
       var html = marked(fs.readFileSync(fp, 'utf8'));
 
       var template = options.template;
@@ -73,6 +73,7 @@ exports = module.exports = function serveMarkdown(root, options) {
   }
 };
 
+// setup markdown parser
 function initMarked(options) {
   var mdOptions = {
     renderer: new marked.Renderer(),
