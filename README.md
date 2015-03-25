@@ -10,7 +10,7 @@ A connect middleware, parses markdown files to html.
 ## Install
 
 ```sh
-$ npm install serve-markdown
+$ npm i serve-markdown
 ```
 
 ## API
